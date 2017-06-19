@@ -2,6 +2,40 @@
  	console.log("Sudoku Controller");
 
  	$scope.sudoku;
+ 	
+ 	function connect() {
+	    var socket = new SockJS('http://localhost:8080/gs-guide-websocket');
+	    stompClient = Stomp.over(socket);
+	    stompClient.connect({}, function (frame) {
+	        setConnected(true);
+	        console.log('Connected: ' + frame);
+	        stompClient.subscribe('/topic/greetings', function (cellBody) {
+	            parseCell(cellBody.body);
+	        });
+	    });
+	}
+ 	
+ 	function parseCell(cellBody) {
+ 		var body = JSON.parse(cellBody)
+ 		$scope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].value = body.cell.value
+ 		$scope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].user = body.cell.user
+ 		
+	    $("#greetings").append("<tr><td>" + cellBody + "</td></tr>");
+ 		$scope.$apply()
+	}
+ 	
+ 	connect();
+ 	
+ 	$scope.inputChange = function (cell,keyEvent) {
+ 		var cell1 = {
+ 			'rowIndex':cell.row.index,
+ 			'columnIndex':cell.column.index,
+ 			'value':keyEvent.key,
+ 			'user':$("#name").val(),
+ 			
+ 		}
+	    stompClient.send("/app/hello", {}, JSON.stringify({'cell':cell1}));
+	}
 
 
  	function init() {
