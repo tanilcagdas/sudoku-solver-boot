@@ -47,7 +47,7 @@ public class SudokuController {
     public List<Row> parseRandom() {
 		Sudoku sudoku = null;
 		try {
-			sudoku = parserService.parseWebSudoku(0,4);
+			sudoku = parserService.parseWebSudoku(0,3);
 //			sudoku = brain.solveSudoku(sudoku);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -58,8 +58,9 @@ public class SudokuController {
 	
 	 @MessageMapping("/hello")
 	    @SendTo("/topic/greetings")
-	    public  String greeting(String message) throws Exception {
+	    public  CellMessage greeting(CellMessage message) throws Exception {
 	        Thread.sleep(1000); // simulated delay
+	        message.getCell().setFound(true);
 	        return message;
 	    }
 
@@ -78,4 +79,59 @@ public class SudokuController {
 	
 	
 
+}
+
+class CellMessage{
+	Cell   cell;
+
+	
+	public Cell getCell() {
+		return cell;
+	}
+
+
+	public void setCell(Cell cell) {
+		this.cell = cell;
+	}
+
+
+	public class Cell{
+		int rowIndex;
+		int columnIndex;
+		String value;
+		String user;
+		boolean found;
+		
+		public boolean isFound() {
+			return found;
+		}
+		public void setFound(boolean found) {
+			this.found = found;
+		}
+		public int getRowIndex() {
+			return rowIndex;
+		}
+		public void setRowIndex(int rowIndex) {
+			this.rowIndex = rowIndex;
+		}
+		public int getColumnIndex() {
+			return columnIndex;
+		}
+		public void setColumnIndex(int columnIndex) {
+			this.columnIndex = columnIndex;
+		}
+		public String getValue() {
+			return value;
+		}
+		public void setValue(String value) {
+			this.value = value;
+		}
+		public String getUser() {
+			return user;
+		}
+		public void setUser(String user) {
+			this.user = user;
+		}
+
+	}
 }

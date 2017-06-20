@@ -19,6 +19,7 @@
  		var body = JSON.parse(cellBody)
  		$scope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].value = body.cell.value
  		$scope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].user = body.cell.user
+ 		$scope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].found = body.cell.found
  		
 	    $("#greetings").append("<tr><td>" + cellBody + "</td></tr>");
  		$scope.$apply()
@@ -27,6 +28,9 @@
  	connect();
  	
  	$scope.inputChange = function (cell,keyEvent) {
+ 		if ( isNaN(cell.value + String.fromCharCode(keyEvent.keyCode) )) {
+ 			return false;
+ 		}
  		var cell1 = {
  			'rowIndex':cell.row.index,
  			'columnIndex':cell.column.index,
@@ -64,6 +68,7 @@
  			restGroup = finalData[i].group;
  			for (j = 0; j < sudokuGroup.length; j++) { 
  				sudokuGroup[j].value = restGroup[j].value;
+ 				sudokuGroup[j].found = restGroup[j].found;
 
  			}
 

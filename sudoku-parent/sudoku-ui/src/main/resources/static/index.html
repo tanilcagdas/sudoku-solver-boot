@@ -46,7 +46,8 @@
                     <input type='text' style="color:{{y.color}};" size='1' ng-model="y.value" 
                     onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"
                     ng-keypress="inputChange(y,$event)"
-                    class="cell grp{{y.threeByThreeSquare.index}}" >
+                    class="cell grp{{y.threeByThreeSquare.index}}"
+                    ng-disabled="y.found" >
 
 
                 </td>
@@ -130,8 +131,8 @@
     <script src="server/algorithm1.js"></script>
     <script src="server/algorithm2.js"></script>
     <script src="server/algorithm3.js"></script>
-    <script src="Service/sudokuService.js"></script>
-    <script src="Service/sudokuCreatorService.js"></script>
+    <script src="service/sudokuService.js"></script>
+    <script src="service/sudokuCreatorService.js"></script>
     <script src="beans/Column.js"></script>
     <script src="beans/Cell.js"></script>
     <script src="beans/Row.js"></script>
