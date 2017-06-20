@@ -33,6 +33,10 @@ var headers =  {
 	'Access-Control-Allow-Credentials': true
 };
 
+var baseurl = document.URL.replace('8090','8080');
+
+
+
 
 /**
  * Main AngularJS Web Application

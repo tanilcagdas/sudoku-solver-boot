@@ -55,7 +55,7 @@ function parseFromJava(sudoku){
 
 	//request("http://localhost:8080/SudokuSolver/ParserServlet");
 
-	var res = parse("http://localhost:8080/SudokuSolver/ParserServlet");
+	var res = parse(baseurl+"SudokuSolver/ParserServlet");
 
 
 

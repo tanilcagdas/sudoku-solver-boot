@@ -4,7 +4,7 @@
  	$scope.sudoku;
  	
  	function connect() {
-	    var socket = new SockJS('http://localhost:8080/gs-guide-websocket');
+	    var socket = new SockJS(baseurl+'gs-guide-websocket');
 	    stompClient = Stomp.over(socket);
 	    stompClient.connect({}, function (frame) {
 	        setConnected(true);

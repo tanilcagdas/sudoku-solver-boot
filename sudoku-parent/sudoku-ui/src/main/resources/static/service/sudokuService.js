@@ -2,8 +2,7 @@
 
 
  	this.parse = function() {
- 		var url = "http://localhost:8080/SudokuSolver/ParserServlet";
- 		url = "http://localhost:8080/parseWebSudoku";
+ 		url = baseurl+"parseWebSudoku";
  		var req = {
  			method : 'GET',
  			url : url,
@@ -14,7 +13,7 @@
  	};
 
  	this.solveSudoku = function(sudoku) {
- 		var url = "http://localhost:8080/solve";
+ 		var url = baseurl+"solve";
  		let rowArray = sudoku.rowArray;
  		for (var i = rowArray.length - 1; i >= 0; i--) {
  			let row =rowArray[i]
