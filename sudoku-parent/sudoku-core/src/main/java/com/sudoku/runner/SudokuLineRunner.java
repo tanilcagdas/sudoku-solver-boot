@@ -12,24 +12,24 @@ import com.sudoku.service.ParserService;
 public class SudokuLineRunner implements CommandLineRunner {
 	
 	
-	@Autowired
-	private ParserService parserService;
-	
-	@Autowired
-	private BrainIF brain;
+//	@Autowired
+//	private ParserService parserService;
+//	
+//	@Autowired
+//	private BrainIF brain;
 
 	@Override
 	public void run(String... arg0) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("run");
-		for (int j = 4; j < 5; j++) {
-			
-		Sudoku sudoku = parserService.parseWebSudoku(0,j);
-		long startTime = System.currentTimeMillis();
-		sudoku = brain.solveSudoku(sudoku);
-		System.out.println("took" + (System.currentTimeMillis() - startTime));
-		System.out.println(sudoku);
-		}
+//		for (int j = 4; j < 5; j++) {
+//			
+//		Sudoku sudoku = parserService.parseWebSudoku(0,j);
+//		long startTime = System.currentTimeMillis();
+//		sudoku = brain.solveSudoku(sudoku);
+//		System.out.println("took" + (System.currentTimeMillis() - startTime));
+//		System.out.println(sudoku);
+//		}
 		
 	}
 

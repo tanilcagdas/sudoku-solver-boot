@@ -3,7 +3,7 @@
 
  	$scope.sudoku;
  	
- 	function connect() {
+ 	$scope.connect = function() {
 	    var socket = new SockJS(baseurl+'gs-guide-websocket');
 	    stompClient = Stomp.over(socket);
 	    stompClient.connect({}, function (frame) {
@@ -25,7 +25,7 @@
  		$scope.$apply()
 	}
  	
- 	connect();
+ 	//connect();
  	
  	$scope.inputChange = function (cell,keyEvent) {
  		if ( isNaN(cell.value + String.fromCharCode(keyEvent.keyCode) )) {
@@ -38,7 +38,7 @@
  			'user':$("#name").val(),
  			
  		}
-	    stompClient.send("/app/hello", {}, JSON.stringify({'cell':cell1}));
+	    stompClient.send("/app/move", {}, JSON.stringify({'cell':cell1}));
 	}
 
 
@@ -117,7 +117,7 @@
  	};
 
  	
- 	//$scope.sudoku  = SudokuCreatorService.create()
+ 	// $scope.sudoku = SudokuCreatorService.create()
 
  	console.log($scope.sudoku);
 
@@ -125,114 +125,115 @@
 
 
 	
-	//  var sudokuSolution;
+	// var sudokuSolution;
 
 	
 	
 	
 
 	
-	// 	reset();
+	// reset();
 
 
 	// function action(){
-	// 	sudokuSolution=solveSudoku(sudoku);
-	// 	return "succes";
+	// sudokuSolution=solveSudoku(sudoku);
+	// return "succes";
 	// }
 
 	// function solveStepByStep1(){
-	// 	solveStepByStep( 1);
-	// 	return "succes";
+	// solveStepByStep( 1);
+	// return "succes";
 	// }
 	// function solveStepByStep2(){
-	// 	solveStepByStep( 2);
-	// 	return "succes";
+	// solveStepByStep( 2);
+	// return "succes";
 	// }
 	// function solveStepByStep( algorithm){
-	// 	if(!startedSolving()){
-	// 		sudokuSolution=solveSudokuStepByStep(sudoku, algorithm);
-	// 	}else{
-	// 		sudokuSolution=solveSudokuStepByStep(sudokuSolution, algorithm);
-	// 	}
-	// 	return "succes";
+	// if(!startedSolving()){
+	// sudokuSolution=solveSudokuStepByStep(sudoku, algorithm);
+	// }else{
+	// sudokuSolution=solveSudokuStepByStep(sudokuSolution, algorithm);
+	// }
+	// return "succes";
 	// }
 
 	// function startedSolving() {
-	// 	for ( i = 0; i < 9; i++) {
-	// 		for ( j = 0; j < 9; j++) {
-	// 			cell = sudokuSolution.getRowArray().get(i).getGroup().get(j);
-	// 			if(cell.getValue() != 0){
-	// 				return true;
-	// 			}
-	// 		}
-	// 	};
-	// 	return false;
- //    };
- //    function reset(){
-	// 	sudoku= new Sudoku();
-	// 	sudokuSolution = new Sudoku();
-	// 	return null;
- //    }
- //    function loadDemoSudoku(){
-	// 	reset();
-	// 	sudoku = brain.loadDemoSudoku(sudoku);
-	// 	return null;
- //    }
- //    function loadWebSudoku() {
-	// 	reset();
-	// 	sudoku = Parser.parseWebSudoku(0,selectedSudokuLevel);
-	// 	return null;
- //    }
- //    function loadCustomWebSudoku() {
-	// 	reset();
-	// 	sudoku = Parser.parseWebSudoku(getSelectedSudokuId(),getSelectedSudokuLevel());
-	// 	return null;
- //    }
- //    function loadUnSolvedSudoku() {
-	// 	reset();
-	// 	sudoku = NotSolvedWriter.readANonSolvedSudoku();
-	// 	return null;
+	// for ( i = 0; i < 9; i++) {
+	// for ( j = 0; j < 9; j++) {
+	// cell = sudokuSolution.getRowArray().get(i).getGroup().get(j);
+	// if(cell.getValue() != 0){
+	// return true;
+	// }
+	// }
+	// };
+	// return false;
+ // };
+ // function reset(){
+	// sudoku= new Sudoku();
+	// sudokuSolution = new Sudoku();
+	// return null;
+ // }
+ // function loadDemoSudoku(){
+	// reset();
+	// sudoku = brain.loadDemoSudoku(sudoku);
+	// return null;
+ // }
+ // function loadWebSudoku() {
+	// reset();
+	// sudoku = Parser.parseWebSudoku(0,selectedSudokuLevel);
+	// return null;
+ // }
+ // function loadCustomWebSudoku() {
+	// reset();
+	// sudoku =
+	// Parser.parseWebSudoku(getSelectedSudokuId(),getSelectedSudokuLevel());
+	// return null;
+ // }
+ // function loadUnSolvedSudoku() {
+	// reset();
+	// sudoku = NotSolvedWriter.readANonSolvedSudoku();
+	// return null;
 	// }
 
 	// function isSudokuCorrect() {
-	// 	if(startedSolving()){
-	// 		return 	brain.isSudokuCorrect(sudokuSolution);
-	// 	}else {
-	// 		return false;
-	// 	}
- //    }
+	// if(startedSolving()){
+	// return brain.isSudokuCorrect(sudokuSolution);
+	// }else {
+	// return false;
+	// }
+ // }
     
 	// function setSudokuCorrect(sudokuCorrect) {
-	// 	this.sudokuCorrect = sudokuCorrect;
+	// this.sudokuCorrect = sudokuCorrect;
 	// }
 
 	// function getDemoSudoku() {
-	// 	return sudoku;
+	// return sudoku;
 	// }
 
 	// function setDemoSudoku( demoSudoku) {
-	// 	SudokuController.sudoku = demoSudoku;
+	// SudokuController.sudoku = demoSudoku;
 	// }
 	// function getSudokuSolution() {
-	// 	return sudokuSolution;
+	// return sudokuSolution;
 	// }
 	// function setSudokuSolution( sudokuSolution) {
-	// 	SudokuController.sudokuSolution = sudokuSolution;
+	// SudokuController.sudokuSolution = sudokuSolution;
 	// }
 
 	// function getSelectedSudokuId() {
-	// 	return selectedSudokuId;
+	// return selectedSudokuId;
 	// }
 
 	// function setSelectedSudokuId( selectedSudokuId) {
-	// 	this.selectedSudokuId = selectedSudokuId;
+	// this.selectedSudokuId = selectedSudokuId;
 	// }
 
 	// function getSelectedSudokuLevel() {
-	// 	return selectedSudokuLevel;
+	// return selectedSudokuLevel;
 	// }
 
 	// function setSelectedSudokuLevel( selectedSudokuLevel) {
-	// 	this.selectedSudokuLevel = selectedSudokuLevel;
-	// } 
+	// this.selectedSudokuLevel = selectedSudokuLevel;
+	// }
 

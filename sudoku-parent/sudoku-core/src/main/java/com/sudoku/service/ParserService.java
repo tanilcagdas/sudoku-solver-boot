@@ -72,6 +72,7 @@ public class ParserService {
 				Cell cell = inputSudoku.getRowArray().get(i).getGroup().get(j);
 				if (!value.equals("")) {
 					cell.setValue(Integer.parseInt(value));
+					cell.setFound(true);
 				} else {
 					cell.setValue(0);
 				}
