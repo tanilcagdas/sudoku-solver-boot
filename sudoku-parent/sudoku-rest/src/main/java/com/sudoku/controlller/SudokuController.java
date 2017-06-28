@@ -58,11 +58,18 @@ public class SudokuController {
 	}
 
 	@MessageMapping("/move")
-	@SendTo("/topic/greetings")
+	@SendTo("/topic/moves")
 	public CellMessage greeting(CellMessage message) throws Exception {
 		Thread.sleep(1000); // simulated delay
 		message.getCell().setFound(true);
 		return message;
+	}
+	
+	@MessageMapping("/join")
+	@SendTo("/topic/connectedusers")
+	public String join(String username) throws Exception {
+		Thread.sleep(1000); // simulated delay
+		return username;
 	}
 	
 //	@MessageMapping("/sudoku")

@@ -2,6 +2,8 @@
  	console.log("Sudoku Controller");
 
  	$scope.sudoku;
+ 	 $scope.connectedUsers = [];
+ 	
  	
  	$scope.connect = function() {
 	    var socket = new SockJS(baseurl+'gs-guide-websocket');
@@ -9,9 +11,14 @@
 	    stompClient.connect({}, function (frame) {
 	        setConnected(true);
 	        console.log('Connected: ' + frame);
-	        stompClient.subscribe('/topic/greetings', function (cellBody) {
+	        stompClient.subscribe('/topic/moves', function (cellBody) {
 	            parseCell(cellBody.body);
 	        });
+	        stompClient.subscribe('/topic/connectedusers', function (cellBody) {
+	        	parseConnectedUsers(cellBody.body);
+	        });
+	        var username = $("#name").val();
+	        stompClient.send("/app/join", {}, JSON.stringify({'username':username}));
 	    });
 	}
  	
@@ -24,8 +31,13 @@
 	    $("#greetings").append("<tr><td>" + cellBody + "</td></tr>");
  		$scope.$apply()
 	}
+ 	function parseConnectedUsers(cellBody) {
+ 		var body = JSON.parse(cellBody)
+ 		$scope.connectedUsers.push(body.username);
+	     $scope.$apply()
+ 	}
  	
- 	//connect();
+ 	// connect();
  	
  	$scope.inputChange = function (cell,keyEvent) {
  		if ( isNaN(cell.value + String.fromCharCode(keyEvent.keyCode) )) {
