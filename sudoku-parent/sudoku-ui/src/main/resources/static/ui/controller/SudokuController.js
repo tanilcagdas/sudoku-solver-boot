@@ -24,7 +24,7 @@
  	
  	function parseCell(cellBody) {
  		var body = JSON.parse(cellBody)
- 		$scope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].value = body.cell.value
+ 		$scope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].value = Number(body.cell.value)
  		$scope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].user = body.cell.user
  		$scope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].found = body.cell.found
  		
