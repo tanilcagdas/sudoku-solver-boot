@@ -12,7 +12,7 @@
                 <td class="column" ng-repeat="y in x.group">
 
                     <input type='text' style="color:{{y.color}};" size='1' ng-model="y.value" 
-                    onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"
+                    onkeypress="if ( isNaN(String.fromCharCode(event.keyCode) )) return false;"
                     ng-keypress="inputChange(y,$event)"
                     class="cell grp{{y.threeByThreeSquare.index}}"
                     ng-disabled="y.found" >
@@ -23,20 +23,7 @@
 
 
         </table>
-        <div class="button-div">
 
-
-        <button class="solve-button" ng-click="solveJS()">solveJS</button>
-            <button class="solve-button" ng-click="solve()">solve</button>
-            <button class="solve-button" ng-click="solveSudokuStepByStep(1)">solve-step1</button>
-            <button class="solve-button" ng-click="solveSudokuStepByStep(2)">solve-step2</button>
-
-        </div>
-        <div class="button-div">
-            <button class="clear-button" ng-click="clear()">clear</button>
-            <button class="load-button" ng-click="loadDemo()">load demo</button>
-
-        </div>
 
     </div>
     
@@ -45,22 +32,28 @@
         <div class="col-md-6">
             <form class="form-inline">
                 <div class="form-group">
-                    <label for="connect">WebSocket connection:</label>
-                    <button id="connect" class="btn btn-default" type="submit">Connect</button>
-                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
-                    </button>
                 </div>
             </form>
         </div>
         <div class="col-md-6">
             <form class="form-inline">
                 <div class="form-group">
-                    <label for="name">What is your name?</label>
-                    <input type="text" id="name" class="form-control" placeholder="Your name here...">
+                    <label for="name">User : {{user.name}}</label>
                 </div>
                 
             </form>
         </div>
+        
+        connectedUsers
+		<table id="connectedUsers" class="tbl table" >
+            <tr ng-repeat="x in connectedUsers">
+                <td >
+                   {{x}}
+                </td>
+            </tr>
+        </table>
+        
+        
     </div>
     <div class="row">
         <div class="col-md-12">

@@ -220,14 +220,13 @@ setValue( value) {
 	}else{
 		this.found =  true;
 	}
-		//sudoku.sudokuHasChanged = true;
-		// this.row.sudoku.howManyCellsLeft =
-		// this.row.sudoku.getHowManyCellsLeft() - 1;
-		console.log("Cell with coordinates : " + this.row.index
+		try {
+					console.log("Cell with coordinates : " + this.row.index
 			+ "," + this.column.index + " value set by "
-			//+ Thread.currentThread().getStackTrace()[2].toString()
 			+ "\n to : " + value);
-		//notifyObservers(this);
+		} catch (e) {
+			// TODO: handle exception
+		}
 	}
 
 

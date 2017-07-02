@@ -1,41 +1,57 @@
- app.controller('sudokuCtrl',  ['$scope','SudokuService', 'SudokuCreatorService', function($scope, SudokuService, SudokuCreatorService)  {
+ app.controller('sudokuCtrl',  ['$rootScope', '$scope','SudokuService', 'SudokuCreatorService', function($rootScope,$scope, SudokuService, SudokuCreatorService)  {
  	console.log("Sudoku Controller");
 
- 	$scope.sudoku;
- 	 $scope.connectedUsers = [];
- 	
- 	
- 	$scope.connect = function() {
-	    var socket = new SockJS(baseurl+'gs-guide-websocket');
-	    stompClient = Stomp.over(socket);
-	    stompClient.connect({}, function (frame) {
-	        setConnected(true);
-	        console.log('Connected: ' + frame);
-	        stompClient.subscribe('/topic/moves', function (cellBody) {
-	            parseCell(cellBody.body);
-	        });
-	        stompClient.subscribe('/topic/connectedusers', function (cellBody) {
-	        	parseConnectedUsers(cellBody.body);
-	        });
-	        var username = $("#name").val();
-	        stompClient.send("/app/join", {}, JSON.stringify({'username':username}));
-	    });
-	}
- 	
- 	function parseCell(cellBody) {
- 		var body = JSON.parse(cellBody)
- 		$scope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].value = Number(body.cell.value)
- 		$scope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].user = body.cell.user
- 		$scope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].found = body.cell.found
+ 	$rootScope.sudoku;
  		
-	    $("#greetings").append("<tr><td>" + cellBody + "</td></tr>");
- 		$scope.$apply()
-	}
- 	function parseConnectedUsers(cellBody) {
- 		var body = JSON.parse(cellBody)
- 		$scope.connectedUsers.push(body.username);
-	     $scope.$apply()
- 	}
+// 	$rootScope.connectedUsers = [];
+// 	
+// 	$rootScope.disconnect = function () {
+// 		if (stompClient != null) {
+// 			stompClient.disconnect();
+// 		}
+// 		setConnected(false);
+// 		console.log("Disconnected");
+// 	}
+// 	
+// 	setConnected(false)
+// 	
+// 	function setConnected(connected) {
+// 		$("#connect").prop("disabled", connected);
+// 		$("#disconnect").prop("disabled", !connected);
+// 		$("#start").prop("disabled", !connected);
+// 		if (connected) {
+// 			$("#conversation").show();
+// 		} else {
+// 			$("#conversation").hide();
+// 		}
+// 		$("#greetings").html("");
+// 	}
+// 	
+// 	
+// 	$rootScope.connect = function() {
+//	    var socket = new SockJS(baseurl+'websocket');
+//	    stompClient = Stomp.over(socket);
+//	    stompClient.connect({}, function (frame) {
+//	        setConnected(true);
+//	        console.log('Connected: ' + frame);
+//	        stompClient.subscribe('/topic/moves', function (cellBody) {
+//	            parseCell(cellBody.body);
+//	        });
+//	        stompClient.subscribe('/topic/connectedusers', function (cellBody) {
+//	        	parseConnectedUsers(cellBody.body);
+//	        });
+//	        console.log($rootScope.user.name)
+//	        var username = $("#name").val();
+//	        stompClient.send("/app/join", {}, JSON.stringify({'username':username}));
+//	    });
+//	}
+ 	
+ 	
+// 	function parseConnectedUsers(cellBody) {
+// 		var body = JSON.parse(cellBody)
+// 		$rootScope.connectedUsers.push(body.username);
+// 		$rootScope.$apply()
+// 	}
  	
  	// connect();
  	
@@ -55,16 +71,16 @@
 
 
  	function init() {
- 		$scope.sudoku = new Sudoku() ;
- 		<!--printSudoku($scope.sudoku);-->
+ 		$rootScope.sudoku = new Sudoku() ;
+ 		<!--printSudoku($rootScope.sudoku);-->
  	};
 
  	$scope.loadDemo = function(){
- 		$scope.sudoku  = SudokuService.loadDemoSudoku($scope.sudoku )
+ 		$rootScope.sudoku  = SudokuService.loadDemoSudoku($rootScope.sudoku )
  	};
 
  	$scope.loadFromJava = function(){
- 		$scope.sudoku  = parseFromJava($scope.sudoku )
+ 		$rootScope.sudoku  = parseFromJava($rootScope.sudoku )
  	};
 
  	init();
@@ -76,7 +92,7 @@
 
  		for (i = 0; i < finalData.length; i++) { 
 
- 			sudokuGroup = $scope.sudoku.rowArray[i].group;
+ 			sudokuGroup = $rootScope.sudoku.rowArray[i].group;
  			restGroup = finalData[i].group;
  			for (j = 0; j < sudokuGroup.length; j++) { 
  				sudokuGroup[j].value = restGroup[j].value;
@@ -90,14 +106,14 @@
  		console.log(response.status + " : " + response.statusText);
  	});
 
-    $scope.solve = function(){
- 	res2 = SudokuService.solveSudoku($scope.sudoku);
+ 	$rootScope.solve = function(){
+ 	res2 = SudokuService.solveSudoku($rootScope.sudoku);
  	res2.then(function(response) {
  		var finalData = response.data;
 
  		for (i = 0; i < finalData.length; i++) { 
 
- 			sudokuGroup = $scope.sudoku.rowArray[i].group;
+ 			sudokuGroup = $rootScope.sudoku.rowArray[i].group;
  			restGroup = finalData[i].group;
  			for (j = 0; j < sudokuGroup.length; j++) { 
  				sudokuGroup[j].value = restGroup[j].value;
@@ -106,7 +122,7 @@
 
  		}
 
- 		$scope.sudoku.syncThreeByThreeSquaresToRow();
+ 		$rootScope.sudoku.syncThreeByThreeSquaresToRow();
 
  	}, function errorCallback(response) {
  		console.log(response.status + " : " + response.statusText);
@@ -115,11 +131,11 @@
 
 
  	$scope.solveJS = function(){
- 		$scope.sudoku  = SudokuService.solveSudokuJS($scope.sudoku );
+ 		$rootScope.sudoku  = SudokuService.solveSudokuJS($rootScope.sudoku );
  	};
 
  	$scope.solveSudokuStepByStep = function(i){
- 		$scope.sudoku  = SudokuService.solveSudokuStepByStep($scope.sudoku, i );
+ 		$rootScope.sudoku  = SudokuService.solveSudokuStepByStep($rootScope.sudoku, i );
  	};
 
  	
@@ -129,9 +145,9 @@
  	};
 
  	
- 	// $scope.sudoku = SudokuCreatorService.create()
+ 	// $rootScope.sudoku = SudokuCreatorService.create()
 
- 	console.log($scope.sudoku);
+ 	console.log($rootScope.sudoku);
 
  }]);
 

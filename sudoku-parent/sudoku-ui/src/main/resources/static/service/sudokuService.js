@@ -1,4 +1,4 @@
- app.service('SudokuService', function($http) {
+ app.service('SudokuService', function($http,$rootScope) {
 
 
  	this.parse = function() {
@@ -199,6 +199,16 @@
 		return demoSudoku;
 
 	}
+	 
+	 this.parseCell= function (cellBody) {
+	 		var body = JSON.parse(cellBody)
+	 		$rootScope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].value = Number(body.cell.value)
+	 		$rootScope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].user = body.cell.user
+	 		$rootScope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].found = body.cell.found
+	 		
+		    $("#greetings").append("<tr><td>" + cellBody + "</td></tr>");
+	 		$rootScope.$apply()
+		}
 
 
 

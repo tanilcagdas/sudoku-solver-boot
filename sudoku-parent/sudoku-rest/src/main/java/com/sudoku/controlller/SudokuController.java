@@ -111,7 +111,16 @@ class CellMessage {
 		int rowIndex;
 		int columnIndex;
 		String value;
-		String user;
+		Object user;
+		Object sudoku;
+		public Object getSudoku() {
+			return sudoku;
+		}
+
+		public void setSudoku(Object sudoku) {
+			this.sudoku = sudoku;
+		}
+
 		boolean found;
 
 		public boolean isFound() {
@@ -146,11 +155,11 @@ class CellMessage {
 			this.value = value;
 		}
 
-		public String getUser() {
+		public Object getUser() {
 			return user;
 		}
 
-		public void setUser(String user) {
+		public void setUser(Object user) {
 			this.user = user;
 		}
 

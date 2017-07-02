@@ -9,9 +9,10 @@
 					<div class="form-group">
 						<label for="connect">WebSocket connection:</label>
 						<button id="connect" class="btn btn-default" type="submit" ng-click="connect()">Connect</button>
-						<button id="disconnect" class="btn btn-default" type="submit"
-							disabled="disabled">Disconnect</button>
-							<a ng-href="#/game" class="btn btn-default" ng-disabled="disabled">start</a>
+						<button id="disconnect" class="btn btn-default" type="submit" ng-click="disconnect()" >Disconnect</button>
+<!-- 						<button id="disconnect" class="btn btn-default" type="submit" -->
+<!-- 							disabled="disabled">Disconnect</button> -->
+							<a id=start ng-href="#/game" class="btn btn-default" >start</a>
 					</div>
 				</form>
 			</div>
@@ -19,7 +20,7 @@
 				<form class="form-inline">
 					<div class="form-group">
 						<label for="name">What is your name?</label> <input type="text"
-							id="name" class="form-control" placeholder="Your name here...">
+							id="name" ng-model="user.name" class="form-control" placeholder="Your name here...">
 					</div>
 
 				</form>
@@ -37,17 +38,5 @@
 
         </table>
 		
-		<div class="row">
-			<div class="col-md-12">
-				<table id="conversation" class="table table-striped">
-					<thead>
-						<tr>
-							<th>Moves</th>
-						</tr>
-					</thead>
-					<tbody id="greetings">
-					</tbody>
-				</table>
-			</div>
-		</div>
+
 	</div>
