@@ -66,7 +66,7 @@
  	this.solveSudokuJS = function(sudoku) {
 	var startTime = new Date().getTime();
 	var sudokuSolution ;
-	/*= new Sudoku();*/
+	/* = new Sudoku(); */
 
 	RED = "red";
 	BLUE = "blue";
@@ -84,9 +84,9 @@
 	} catch ( e) {
 		console.error(e);
 	}
-		//  Solve the f.cking sudoku
+		// Solve the f.cking sudoku
 
-		//  Check if the sudoku has changed
+		// Check if the sudoku has changed
 		trial = 1;
 		while (sudokuSolution.sudokuHasChanged) {
 			while (sudokuSolution.sudokuHasChanged) {
@@ -111,7 +111,7 @@
 		}
 		if (!sudokuSolution.solved) {
 			try {
-				//TODO NotSolvedWriter.log(sudoku, sudokuSolution);
+				// TODO NotSolvedWriter.log(sudoku, sudokuSolution);
 			} catch (e) {
 				console.error( "Error Ocured", e);
 			}
@@ -134,17 +134,18 @@
 
 	// function countHowManyCellsLeft(sudoku){
 
-	// 	sudoku.howManyCellsLeft = 0 ;
+	// sudoku.howManyCellsLeft = 0 ;
 
-	// 	methodRange(sudoku, "countHowManyCellsLeftForCell", ALL);
-	// 	console.log(sudoku.howManyCellsLeft + " Cells is waiting to be solved");
+	// methodRange(sudoku, "countHowManyCellsLeftForCell", ALL);
+	// console.log(sudoku.howManyCellsLeft + " Cells is waiting to be solved");
 
 	// }
 
-	// function countHowManyCellsLeftForCell( cell)  {
-	// 	if (cell.getValue() == undefined || cell.getValue() == null || cell.getValue() === 0){
-	// 		sudoku.howManyCellsLeft = sudoku.howManyCellsLeft + 1;
-	// 	}
+	// function countHowManyCellsLeftForCell( cell) {
+	// if (cell.getValue() == undefined || cell.getValue() == null ||
+	// cell.getValue() === 0){
+	// sudoku.howManyCellsLeft = sudoku.howManyCellsLeft + 1;
+	// }
 
 
 	// }
@@ -156,10 +157,10 @@
 			console.error( "Error Ocured", e);
 		}
 
-		//  Check if the sudoku has changed
+		// Check if the sudoku has changed
 		trial = 1;
 
-		//  reflection
+		// reflection
 		var methodName = "solveSudokuByAlgorithm" + algorithm;
 		try {
 
@@ -183,7 +184,7 @@
 
 
 	 this.loadDemoSudoku = function(demoSudoku) {
-		//  set all zeros
+		// set all zeros
 		var row;
 		for ( row = 0; row < demoSudoku.getRowArray().length; row++) {
 			var column;
@@ -192,7 +193,7 @@
 				var cell = demoSudoku.getRowArray()[row].getGroup()[column];
 			cell.setValue(0);
 		}
-		//  put known values
+		// put known values
 		
 		loadSudoku1(demoSudoku);
 
@@ -202,9 +203,16 @@
 	 
 	 this.parseCell= function (cellBody) {
 	 		var body = JSON.parse(cellBody)
-	 		$rootScope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].value = Number(body.cell.value)
-	 		$rootScope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].user = body.cell.user
-	 		$rootScope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].found = body.cell.found
+	 		if(body.cell.found == true){
+	 			$rootScope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].value = Number(body.cell.value)
+	 			$rootScope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].user = body.cell.user
+	 			$rootScope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].found = body.cell.found
+	 		}else{
+	 			$rootScope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].value = undefined
+	 			$rootScope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].user = body.cell.user
+	 			$rootScope.sudoku.rowArray[body.cell.rowIndex].group[body.cell.columnIndex].found = body.cell.found
+	 			
+	 		}
 	 		
 		    $("#greetings").append("<tr><td>" + cellBody + "</td></tr>");
 	 		$rootScope.$apply()

@@ -61,7 +61,14 @@ public class SudokuController {
 	@SendTo("/topic/moves")
 	public CellMessage greeting(CellMessage message) throws Exception {
 		Thread.sleep(1000); // simulated delay
-		message.getCell().setFound(true);
+		List<Row> rows = clearRecusionAndGetRowArray(brain.solveSudoku(message.getCell().getSudoku().getRowArray().get(0).getSudoku()));
+		if(rows.get(message.getCell().getRowIndex()).getGroup().get(message.getCell().getColumnIndex()).getValue() == Integer.parseInt(message.getCell().getValue())){
+			message.getCell().setFound(true);
+			message.getCell().setSudoku(null);
+		}else{
+			message.getCell().setFound(false);
+			message.getCell().setSudoku(null);
+		}
 		return message;
 	}
 	
@@ -112,12 +119,12 @@ class CellMessage {
 		int columnIndex;
 		String value;
 		Object user;
-		Object sudoku;
-		public Object getSudoku() {
+		RowArrayModel sudoku;
+		public RowArrayModel getSudoku() {
 			return sudoku;
 		}
 
-		public void setSudoku(Object sudoku) {
+		public void setSudoku(RowArrayModel sudoku) {
 			this.sudoku = sudoku;
 		}
 
