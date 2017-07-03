@@ -40,7 +40,7 @@ public class RowArrayModel {
 				LinkedHashMap<?, ?> cellMap = groupMap.get(j) ;
 				Cell cell = row.getGroup().get(j);
 				try {
-					cell.setValue((int) cellMap.get("value"));
+					cell.setValue(Integer.parseInt(cellMap.get("value").toString()));
 					
 				} catch (Exception e) {
 					// TODO: handle exception
